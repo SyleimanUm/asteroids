@@ -1,7 +1,7 @@
 ---@diagnostic disable: lowercase-global
 local love = require "love"
 
-local Player = require "Player"
+local Player = require "objects/Player"
 local Game = require "states/Game"
 
 function love.keypressed(key)
@@ -47,7 +47,11 @@ function love.update(dt)
 end
 
 function love.draw()
-    player:draw()
+
+    if game.state.running or game.state.paused then
+        player:draw()
+        game:draw(game.state.paused)
+    end
 
     love.graphics.setColor(1, 1, 1, 1)
 
