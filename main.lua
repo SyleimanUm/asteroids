@@ -12,6 +12,10 @@ function love.keypressed(key)
             player.thrusting = true
         end
 
+        if key == "space" then
+            player:shootLaser()
+        end
+
         if key == "escape" then
             game:changeGameState("paused")
         end

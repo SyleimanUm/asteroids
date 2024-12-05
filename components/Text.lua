@@ -69,7 +69,7 @@ function Text(text, x, y, font_size, fade_in, fade_out, wrap_width, align, opaci
 
             if fade_in then
                 if self.opacity < 1 then
-                    elf.opacity = self.opacity + (1 / TEXT_FADE_DUR / love.timer.getFPS())
+                    self.opacity = self.opacity + (1 / TEXT_FADE_DUR / love.timer.getFPS())
                 else
                     fade_in = false
                 end
