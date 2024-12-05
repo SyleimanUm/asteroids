@@ -1,9 +1,11 @@
 ---@diagnostic disable: lowercase-global
 local love = require "love"
 local Text = require "../components/Text"
+local Asteroid = require "../objects/Asteriod"
 
 function Game()
     return {
+        level = 1,
         state = {
             menu = false,
             paused = false,
@@ -31,6 +33,17 @@ function Game()
                     "center"
                 ):draw(game.state.paused)
             end
+        end,
+
+        startNewGame = function (self, player)
+            self:changeGameState("running")
+
+            asteroids = {}
+
+           local as_x = math.floor(math.random(love.graphics.getWidth()))
+           local as_y = math.floor(math.random(love.graphics.getHeight()))
+
+           table.insert(asteroids, 1, Asteroid(as_x, as_y, 100, self.level, true))
         end
     }
 end
