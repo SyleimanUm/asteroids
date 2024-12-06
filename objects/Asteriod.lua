@@ -76,7 +76,7 @@ function Asteroid(x, y, ast_size, level)
                 self.y = -self.radius
             end
 
-        end, 
+        end,
 
         destroy = function (self, asteroids_tbl, index, game)
             local MIN_ASTEROID_SIZE = math.ceil(ASTEROID_SIZE / 8)
