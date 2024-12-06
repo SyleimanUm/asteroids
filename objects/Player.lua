@@ -1,13 +1,13 @@
 ---@diagnostic disable: lowercase-global
+require "globals"
 local love = require "love"
 local Laser = require "objects/Laser"
+
 function Player(debagging)
     local SHIP_SIZE = 30
     local VIEW_ANGLE = math.rad(90)
     local LASER_DISTANCE = 0.6
     local MAX_LASERS = 10
-
-    debagging = debagging or false
 
     return {
         x = love.graphics.getWidth() / 2,
@@ -78,7 +78,7 @@ function Player(debagging)
                 self:drawFlameThrust("line", {1, 0.5, 0})
             end
 
-            if debagging then
+            if show_debagging then
                 love.graphics.setColor(1, 0, 0)
 
                 love.graphics.rectangle("fill", self.x - 2, self.y - 2,  4, 4)
@@ -106,7 +106,7 @@ function Player(debagging)
         movePlayer = function (self)
             local FPS = love.timer.getFPS()
             local friction = 0.7
-            self.rotation = (360 / 180) * math.pi / FPS
+            self.rotation = (360 / 270) * math.pi / FPS
 
             if love.keyboard.isDown("a") then
                 self.angle = self.angle + self.rotation
@@ -144,7 +144,13 @@ function Player(debagging)
             for index, laser in pairs(self.lasers) do
                 laser:move()
 
-                if (laser.distance > LASER_DISTANCE * love.graphics.getWidth()) then
+                if (laser.distance > LASER_DISTANCE * love.graphics.getWidth()) and (laser.exploading == 0) then
+                    laser:expload()
+                end
+
+                if laser.exploading == 0 then
+                    laser:move()
+                elseif laser.exploading == 2 then
                     self.destroyLaser(self, index)
                 end
             end

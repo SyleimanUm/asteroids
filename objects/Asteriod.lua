@@ -1,14 +1,15 @@
 ---@diagnostic disable: lowercase-global
+require "globals"
+
 local love = require "love"
 
-function Asteroid(x, y, ast_size, level, debagging)
-    debagging = debagging or false
+function Asteroid(x, y, ast_size, level)
 
-    local ASTEROID_VERT = 12
-    local ASTEROID_JAG = 0.33
+    local ASTEROID_VERT = 10
+    local ASTEROID_JAG = 0.4
     local ASTEROID_SPEED = math.random(50) + (level * 2)
 
-    local ast_size = 100
+    --local ast_size = 100
     local offset = {}
     local vert = math.floor(math.random(ASTEROID_VERT + 1) + ASTEROID_VERT / 2)
     for i = 1, vert + 1, 1 do
@@ -52,7 +53,7 @@ function Asteroid(x, y, ast_size, level, debagging)
                 points
             )
 
-            if debagging then
+            if show_debagging then
                 love.graphics.setColor(1, 0, 0)
                 love.graphics.circle("line", self.x, self.y, self.radius)
             end
@@ -75,6 +76,17 @@ function Asteroid(x, y, ast_size, level, debagging)
                 self.y = -self.radius
             end
 
+        end, 
+
+        destroy = function (self, asteroids_tbl, index, game)
+            local MIN_ASTEROID_SIZE = math.ceil(ASTEROID_SIZE / 8)
+
+            if self.radius > MIN_ASTEROID_SIZE then
+                table.insert(asteroids_tbl, Asteroid(self.x, self.y, self.radius, game.level))
+                table.insert(asteroids_tbl, Asteroid(self.x, self.y, self.radius, game.level))
+            end
+
+           table.remove(asteroids_tbl, index)
         end
     }
 end

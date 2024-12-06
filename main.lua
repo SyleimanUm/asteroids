@@ -37,9 +37,9 @@ function love.load()
     love.mouse.setVisible(false)
     mouse_x, mouse_y = 0, 0
 
-    local show_debugging = true
 
-    player = Player(show_debugging)
+
+    player = Player()
 
     game = Game()
     game:startNewGame(player)
@@ -52,6 +52,12 @@ function love.update(dt)
         player:movePlayer()
 
         for ast_index, asteroid in pairs(asteroids) do
+            for _, laser in pairs(player.lasers) do
+                if calculateDistance(laser.x, laser.y, asteroid.x, asteroid.y) < asteroid.radius then
+                     laser:expload()
+                    asteroid:destroy(asteroids, ast_index, game)
+                end
+            end
             asteroid:move(dt)
         end
     end
