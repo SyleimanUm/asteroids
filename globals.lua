@@ -14,8 +14,19 @@ end
 
 function readJSON(file_name)
     local file = io.open("src/data/" .. file_name .. ".json", "r")
-    local data = file:read("*all")
-    file:close()
+    local data
+    if file ~= nil then
+        data = file:read("*all")
+        file:close()
+    end
 
     return lunajson.decode(data)
+end
+
+function writeJSON(file_name, data)
+    local file = io.open("src/data/" .. file_name .. ".json", "w")
+    if file ~= nil then
+        file:write(lunajson.encode(data))
+        file:close()
+    end
 end

@@ -19,6 +19,12 @@ function Game(save_data)
         screen_text = {},
         game_over_showing = false,
 
+        saveGame = function (self)
+            writeJSON("save", {
+                high_score = self.high_score
+            })
+        end,
+
         changeGameState = function(self, state)
             self.state.menu = state == "menu"
             self.state.paused = state == "paused"
@@ -45,6 +51,8 @@ function Game(save_data)
             }
 
             self.game_over_showing = true
+
+            self:saveGame()
         end,
 
         draw = function(self, faded)
