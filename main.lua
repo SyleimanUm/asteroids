@@ -28,9 +28,9 @@ function love.keypressed(key)
 end
 
 function love.mousepressed(x, y, button, isTouch, presses)
-   if button == 1 then
+    if button == 1 then
         clickedMouse = true
-   end
+    end
 end
 
 function love.keyreleased(key)
@@ -93,7 +93,6 @@ function love.update(dt)
             end
             asteroid:move(dt)
         end
-    
     elseif game.state.menu then
         menu:run(clickedMouse)
     end
@@ -110,7 +109,9 @@ function love.draw()
 
         game:draw(game.state.paused)
     elseif game.state.menu then
-        menu.draw()
+        menu:draw()
+    elseif game.state.ended then
+        game:draw()
     end
 
     love.graphics.setColor(1, 1, 1, 1)

@@ -117,10 +117,6 @@ function Player(num_lives)
                 love.graphics.setColor(1, 0.75, 0, opacity)
                 love.graphics.circle("fill", self.x, self.y, self.radius * 0.5)
             end
-
-
-
-
         end,
 
         drawLives = function (self, faded)

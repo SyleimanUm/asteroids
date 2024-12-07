@@ -81,7 +81,7 @@ function Text(text, x, y, font_size, fade_in, fade_out, wrap_width, align, opaci
                 love.graphics.setFont(fonts[font_size])
                 love.graphics.printf(self.text, self.x, self.y, wrap_width, align)
                 love.graphics.setFont(fonts["p"])
-                else
+            else
                     table.remove(tbl_text, index)
                     return false
             end

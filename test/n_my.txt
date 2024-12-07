@@ -1,0 +1,11 @@
+           for index, text in pairs(self.screen_text) do
+                if self.game_over_showing then
+                    self.game_over_showing = text:draw(self.screen_text, index)
+
+                    if not self.game_over_showing then
+                        self:changeGameState("menu")
+                    end
+                else
+                    text:draw(self.screen_text, index)
+                end
+            end
