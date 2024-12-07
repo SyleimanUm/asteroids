@@ -27,6 +27,12 @@ function love.keypressed(key)
     end
 end
 
+function love.mousepressed(x, y, button, isTouch, presses)
+   if button == 1 then
+        clickedMouse = true
+   end
+end
+
 function love.keyreleased(key)
     if key == "w" then
         player.thrusting = false
@@ -85,6 +91,9 @@ function love.update(dt)
             end
             asteroid:move(dt)
         end
+    
+    elseif game.state.menu then
+        menu:run(clickedMouse)
     end
 end
 
@@ -104,7 +113,9 @@ function love.draw()
 
     love.graphics.setColor(1, 1, 1, 1)
 
-    
+    if not game.state.running then
+        love.graphics.circle("fill", mouse_x, mouse_y, 10)
+    end
 
     love.graphics.print(love.timer.getFPS(), 10, 10)
 end

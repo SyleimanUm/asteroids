@@ -41,15 +41,48 @@ function Button(func, text_color, button_color, width, height, text, text_align,
             text_align,
             1
         ),
+        
+        setButtonColor = function (self, red, green, blue)
+            self.button_color = {r = red, g = green, b = blue}
+        end,
+
+        setTextColor = function (self, red, green, blue)
+            self.text_color =  {r = red, g = green, b = blue}
+        end,
+
+        checkHover = function (self, mouse_x, mouse_y, cursor_radius)
+            if (mouse_x + cursor_radius >= self.button_x) and (mouse_x - cursor_radius <= self.button_x + self.width) then
+                if (mouse_y + cursor_radius >= self.button_y) and (mouse_y - cursor_radius <= self.button_y + self.height) then
+                    return true
+                end
+            end
+
+            return false
+        end,
+
+        click = function (self)
+            func()
+        end,
+
         draw = function(self)
             love.graphics.setColor(self.button_color["r"], self.button_color["g"], self.button_color["b"])
             love.graphics.rectangle("fill", self.button_x, self.button_y, self.width, self.height)
 
-            love.graphics.setColor(self.text_color["r"], self.text_color["g"], self.text_color["b"])
-            self.text_component:draw()
+            -- love.graphics.setColor()
 
+            self.text_component:setColor(self.text_color["r"], self.text_color["g"], self.text_color["b"])
+            self.text_component:draw()
             love.graphics.setColor(1, 1, 1)
-        end
+        end,
+
+        getButtonPos = function (self)
+            return self.button_x, self.button_y
+        end,
+
+        getTextPos = function (self)
+            return self.text_x, self.text_y
+        end,
+
     }
 end
 
