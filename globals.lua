@@ -1,6 +1,6 @@
 ---@diagnostic disable: lowercase-global
 ASTEROID_SIZE = 100
-show_debagging = true
+show_debagging = false
 destroy_ast = false
 
 function calculateDistance(x1, y1, x2, y2)

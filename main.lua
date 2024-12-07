@@ -3,11 +3,12 @@ local love = require "love"
 
 local Player = require "objects/Player"
 local Game = require "states/Game"
+local Menu = require "states.Menu"
 
 math.randomseed(os.time())
 
 function love.keypressed(key)
-    if game.state.running then        
+    if game.state.running then
         if key == "w" then
             player.thrusting = true
         end
@@ -32,17 +33,13 @@ function love.keyreleased(key)
     end
 end
 
-
 function love.load()
     love.mouse.setVisible(false)
     mouse_x, mouse_y = 0, 0
 
-
-
     player = Player()
-
     game = Game()
-    game:startNewGame(player)
+    menu = Menu(game, player)
 end
 
 function love.update(dt)
@@ -81,7 +78,7 @@ function love.update(dt)
                         destroy_ast = false
                         asteroid:destroy(asteroids, ast_index, game)
                     end
-                else 
+                else
                     destroy_ast = false
                     asteroid:destroy(asteroids, ast_index, game)
                 end
@@ -92,7 +89,6 @@ function love.update(dt)
 end
 
 function love.draw()
-
     if game.state.running or game.state.paused then
         player:drawLives(game.state.paused)
         player:draw(game.state.paused)
@@ -102,9 +98,13 @@ function love.draw()
         end
 
         game:draw(game.state.paused)
+    elseif game.state.menu then
+        menu.draw()
     end
 
     love.graphics.setColor(1, 1, 1, 1)
+
+    
 
     love.graphics.print(love.timer.getFPS(), 10, 10)
 end
