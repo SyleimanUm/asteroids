@@ -127,7 +127,7 @@ function Game(save_data)
 
                 until calculateDistance(player.x, player.y, as_x, as_y) > ASTEROID_SIZE * 2 + player.radius
 
-                table.insert(asteroids, 1, Asteroid(as_x, as_y, ASTEROID_SIZE, self.level))
+                table.insert(asteroids, 1, Asteroid(as_x, as_y, ASTEROID_SIZE, self.level, sfx))
             end
         end
     }
