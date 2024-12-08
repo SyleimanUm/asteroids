@@ -71,6 +71,8 @@ function love.update(dt)
             if not player.exploading and not player.invincible then
                 if calculateDistance(player.x, player.y, asteroid.x, asteroid.y) < asteroid.radius + player.radius then
                     player:expload()
+                    sfx:stopFX("asteriod_explosion")
+                    sfx:playFX("ship_explosion")
                     destroy_ast = true
                 end
             else
